@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Images/kisspng-logo-brand-trademark-number-5b07c102494562.5849985215272348183001.png">
+</head>
+
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="logoheader">
+                <img class="logo" src="Images/kisspng-logo-brand-trademark-number-5b07c102494562.5849985215272348183001.png" alt="logo">
+            </div>
+        </header>
+
+        <div class="stickynavbar">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <ul class="nav navbar-nav">
+                        <li><a href="home.html">Home</a></li>
+
+                        <li class="dropdown active">
+                            <a class="dropdown-toggle active" data-toggle="dropdown" href="#">Congress 113
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu active">
+                                <li><a href="senate-data.html">Senate</a></li>
+                                <li><a href="house-data.html">House</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Attendance
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="senate-attendance.html">Senate</a></li>
+                                <li><a href="house-attendance.html">House</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Party Loyalty
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="senate-party-loyalty.html">Senate</a></li>
+                                <li><a href="house-party-loyalty.html">House</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="mailto:info@tgif.net"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> info@tgif.net</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+
+        <div class="container housesenatecontent">
+            <h2>Congressmen</h2>
+            <p>The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p>
+            <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
+        </div>
+
+        <div class="container">
+
+            <table class="table table-hover sticky">
+                <thead class="stickychild">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="checkbox" id="checkboxR" name="party" value="R" checked @click="filterMembers"> Republican
+                            <input type="checkbox" id="checkboxD" name="party" value="D" checked @click="filterMembers"> Democrat
+                            <input type="checkbox" id="checkboxI" name="party" value="I" checked @click="filterMembers"> Independent
+                        </div>
+                        <div class="col-sm-6 text-right">
+
+                            <div class="dropdown">
+                                <label>
+                                    <p>Filter by State: </p>
+                                </label>
+                                <select id="dropdownState" @change="filterMembers">
+                                    <option value="all"> All </option>
+                                    <option :value="state" v-for='state in states'>{{state}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <tr>
+                        <th class="tablename">Name</th>
+                        <th>Party</th>
+                        <th>State</th>
+                        <th>Years in Office</th>
+                        <th>Votes with Party</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <div class="loader" id="loader" v-if="show == true"></div>
+                    <div v-if="show == false">
+                        <tr v-for="member in members" v-if="members.length > 0">
+                            <td><a :href="member.url">{{member.first_name}} <span v-if="member.middle_name != null">{{member.middle_name}}</span>{{member.last_name}}</a></td>
+                            <td>{{member.party}}</td>
+                            <td>{{member.state}}</td>
+                            <td>{{member.seniority}}</td>
+                            <td>{{member.votes_with_party_pct}} %</td>
+                        </tr>
+                        <tr v-if="members.length == 0">
+                            <td class='message'>No results for this selection. Please make a different selection.</td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+
+        <button onclick="topButton()" id="topBtn" title="Go to top">Top</button>
+
+        <footer class="footer">
+            <div class="footertext">
+                <p>© 2018 TGIF | All Rights Reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src=main-vue.js></script>
+</body>
+
+</html>
